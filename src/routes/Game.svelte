@@ -93,6 +93,6 @@
     .grid-container {
         width: 80vmin;
         height: 80vmin;
-        background: teal;
+        /* background: teal; */
     }
 </style>

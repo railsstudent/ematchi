@@ -9,6 +9,9 @@
 
 <div class="square" class:flipped={selected}>
     <button on:click />
+
+    <div class="background" />
+
     {#if !found}
         <img alt={emoji} src={get_twemoji_url(emoji)} />
     {/if}
@@ -16,26 +19,42 @@
 
 <style>
     .square {
-        background: yellow;
-
         display: flex;
         justify-content: center;
         align-items: center;
+        transform-style: preserve-3d;
+        transition: transform 0.4s;
     }
 
     button {
         position: absolute;
         width: 100%;
-        height: 100%;    
+        height: 100%;
+        backface-visibility: hidden; 
+        border: 0;
+        border-radius: 1em;
+        font-size: inherit;
     }
 
-    .flipped button {
-        background: red;
+    .flipped {
+        transform: rotateY(180deg);
+    }
+
+    .background {
+        position: absolute;
+        background: white;
+        border: 0.5em solid #eee;
+        transform: rotateY(180deg);
+        backface-visibility: hidden;
+        width: 100%;
+        height: 100%;
     }
 
     img {
         width: 12em;
         height: 12em;
         pointer-events: none;
+        transform: rotateY(180deg);
+        backface-visibility: hidden;
     }
 </style>

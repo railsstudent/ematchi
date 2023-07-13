@@ -32,6 +32,8 @@
         font-size: 8em;
         width: 2em;
         height: 2em;
+        background: transparent;
+        border: none;
     }
 
     svg {
