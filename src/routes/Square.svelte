@@ -1,19 +1,21 @@
 <script lang="ts">
 	import { get_twemoji_url } from './utils';
+    import { send } from './transitions';
 
 
     export let emoji: string;
     export let selected: boolean;
     export let found: boolean;
+    export let group: 'a' | 'b'
 </script>
 
-<div class="square" class:flipped={selected}>
+<div class="square" class:flipped={selected || found}>
     <button on:click />
 
     <div class="background" />
 
     {#if !found}
-        <img alt={emoji} src={get_twemoji_url(emoji)} />
+        <img out:send={{ key: `${emoji}-${group}` }} alt={emoji} src={get_twemoji_url(emoji)} />
     {/if}
 </div>
 
