@@ -59,7 +59,11 @@
 </script>
 <div class="game">
     <div class="info">
-        <Countdown {remaining} duration={level.duration} />
+        <Countdown {remaining} duration={level.duration}
+            on:click={() => {
+                // TODO
+            }}
+        />
     </div>
 
     <div class="grid-container">
