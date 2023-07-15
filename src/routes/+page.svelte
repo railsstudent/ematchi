@@ -10,5 +10,9 @@
 <Game />
 
 {#if state !== 'playing'}
-    <Modal />
+    <Modal>
+        {#if state === 'waiting'}
+            <p>Choose a level</p>
+        {/if}
+    </Modal>
 {/if}
