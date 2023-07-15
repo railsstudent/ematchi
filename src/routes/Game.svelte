@@ -69,6 +69,11 @@
     <div class="grid-container">
         <Grid {grid} on:found={(e) => {
                 found = [...found, e.detail.emoji];
+
+
+                if (found.length === (size * size) / 2) {
+                    // 
+                }
             }} 
             {found}
         />
@@ -97,6 +102,5 @@
     .grid-container {
         width: 80vmin;
         height: 80vmin;
-        /* background: teal; */
     }
 </style>
