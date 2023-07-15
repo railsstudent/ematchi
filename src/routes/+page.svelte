@@ -6,9 +6,10 @@
 
     let state: 'waiting' | 'playing' | 'paused' | 'won' | 'lost' = 'waiting';
 
+    let game;
 </script>
 
-<Game />
+<Game bind:this={game} />
 
 {#if state !== 'playing'}
     <Modal>

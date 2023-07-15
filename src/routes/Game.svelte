@@ -16,6 +16,16 @@
 	let remaining: number = level.duration;
     let playing: boolean = false;
 
+    function start(level: Level) {
+        size = level.size;
+        grid = createGrid(level);
+        remaining = duration = level.duration;
+
+        resume();
+    }
+
+    function resume() {}
+
     function createGrid(level: Level) {
         const copy = level.emojis.slice();
         const pairs: string[] = [];
