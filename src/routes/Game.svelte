@@ -19,11 +19,12 @@
         size = level.size;
         grid = createGrid(level);
         remaining = duration = level.duration;
+        found = [];
 
         resume();
     }
 
-    function resume() {
+    export function resume() {
         playing = true;
         countdown();
 
@@ -68,8 +69,6 @@
 
 		loop();
 	}
-
-    // onMount(countdown);
 </script>
 <div class="game" style="--size: {size}">
     <div class="info">
