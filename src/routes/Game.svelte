@@ -4,9 +4,9 @@
     import Grid from './Grid.svelte';
     import type { Level } from './levels';
 	import { shuffle } from './utils';
-	import { createEventDispatcher, onMount } from 'svelte';
-
-    const dispatcher = createEventDispatcher();
+	import { createEventDispatcher } from 'svelte';
+ 
+    const dispatch = createEventDispatcher();
 
     let size: number
     let grid: string[] = [];
@@ -27,7 +27,7 @@
         playing = true;
         countdown();
 
-        dispatcher('play');
+        dispatch('play');
     }
 
     function createGrid(level: Level) {
@@ -52,7 +52,7 @@
 		const remaining_at_start = remaining;
 
 		function loop() {
-			if (playing) { 
+			if (!playing) { 
                 return;
             }
 
@@ -61,15 +61,15 @@
 			remaining = remaining_at_start - (Date.now() - start);
 
 			if (remaining <= 0) {
-				playing = false;
-				//dispatch('lose');
+				dispatch('lose');
+                playing = false;
 			}
 		}
 
 		loop();
 	}
 
-    onMount(countdown);
+    // onMount(countdown);
 </script>
 <div class="game" style="--size: {size}">
     <div class="info">
@@ -77,6 +77,8 @@
             <Countdown {remaining} duration={duration}
                 on:click={() => {
                     // TODO
+                    playing = false;
+                    dispatch('pause');
                 }}
             />
         {/if}
@@ -88,7 +90,7 @@
 
 
                 if (found.length === (size * size) / 2) {
-                    // 
+                    dispatch('win');
                 }
             }} 
             {found}
