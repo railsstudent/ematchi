@@ -2,21 +2,20 @@
 	import Countdown from './Countdown.svelte';
     import Found from './Found.svelte';
     import Grid from './Grid.svelte';
-    import { levels } from './levels';
     import type { Level } from './levels';
 	import { shuffle } from './utils';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
-    const level = levels[0];
+    const dispatcher = createEventDispatcher();
 
-    let size = level.size;
-    let grid = createGrid(level);
+    let size: number
+    let grid: string[] = [];
     let found: string[] = [];
-    let duration: number = level.duration;
-	let remaining: number = level.duration;
+    let duration = 0;
+	let remaining = 0   ;
     let playing: boolean = false;
 
-    function start(level: Level) {
+    export function start(level: Level) {
         size = level.size;
         grid = createGrid(level);
         remaining = duration = level.duration;
@@ -24,7 +23,12 @@
         resume();
     }
 
-    function resume() {}
+    function resume() {
+        playing = true;
+        countdown();
+
+        dispatcher('play');
+    }
 
     function createGrid(level: Level) {
         const copy = level.emojis.slice();
@@ -67,13 +71,15 @@
 
     onMount(countdown);
 </script>
-<div class="game">
+<div class="game" style="--size: {size}">
     <div class="info">
-        <Countdown {remaining} duration={level.duration}
-            on:click={() => {
-                // TODO
-            }}
-        />
+        {#if playing }
+            <Countdown {remaining} duration={duration}
+                on:click={() => {
+                    // TODO
+                }}
+            />
+        {/if}
     </div>
 
     <div class="grid-container">
